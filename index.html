@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Planner Premium - Organisez votre vie</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- PayPal SDK (Live) -->
+    <!-- Remplacer 'VOTRE_CLIENT_ID_LIVE' par votre vrai Client ID PayPal -->
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=AcYuHImS5OKTQSyTm6Kb4-EKlx1mmraJ0wOI9C8mR_33LY5tlw-rO5upBjlN29ZoPjfzJW2SLESFryQQ&currency=EUR"></script>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            // REMPLACEZ 'YOUR_PUBLIC_KEY' PAR VOTRE CLÉ PUBLIQUE EMAILJS
+            emailjs.init("zAZTjxdVy3ORplxjK");
+        })();
+    </script>
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Planner.</a>
+            <div class="nav-links">
+                <a href="#features">Fonctionnalités</a>
+                <a href="#benefits">Bénéfices</a>
+                <a href="#reviews">Avis</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-primary btn-sm">Acheter</button>
+                <div class="mobile-toggle">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="fade-in">Retrouvez <br> <span class="italic">l'équilibre</span> & <br> la clarté.</h1>
+                <p class="fade-in delay-1">Le planner digital interactif conçu pour organiser votre vie, atteindre vos
+                    objectifs et apaiser votre esprit.</p>
+                <div class="hero-cta fade-in delay-2">
+                    <button class="btn btn-primary btn-checkout">Acheter le ici</button>
+                    <button class="btn btn-outline">Découvrir en vidéo</button>
+                </div>
+            </div>
+            <div class="hero-3d" id="canvas-container">
+                <!-- 3D Canvas will be injected here -->
+            </div>
+        </div>
+        <div class="hero-bg"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section padding-y bg-white">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Tout ce dont vous avez besoin</h2>
+                <p>Une structure complète pour organiser chaque aspect de votre vie.</p>
+            </div>
+            <div class="grid grid-2 grid-4-lg gap-2">
+                <div class="feature-card">
+                    <div class="icon-box">📅</div>
+                    <h3>Planification Annuelle</h3>
+                    <p>Vues annuelles, mensuelles et hebdomadaires pour une vision claire.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">✨</div>
+                    <h3>Suivi d'Habitudes</h3>
+                    <p>Trackers intégrés pour vos objectifs, finances et bien-être.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">✍️</div>
+                    <h3>100% Manuscrit</h3>
+                    <p>Optimisé pour une utilisation fluide avec stylet sur tablette.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">🔗</div>
+                    <h3>Navigation Intuitive</h3>
+                    <p>Des milliers de liens pour naviguer instantanément sans effort.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="reviews" class="section padding-y bg-alt">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Ce qu'ils en pensent</h2>
+            </div>
+            <!-- Review Form -->
+            <div class="review-form-container">
+                <h3>Laissez votre avis</h3>
+                <form id="review-form">
+                    <div class="form-group">
+                        <input type="text" id="review-name" placeholder="Votre Prénom" required>
+                    </div> <!-- Added Email Field -->
+                    <div class="form-group">
+                        <input type="email" id="review-email" placeholder="Votre Email (pour le suivi)" required>
+                    </div>
+                    <!-- End Email Field -->
+                    <!-- Role field removed as requested -->
+                    <div class="form-group">
+                        <label>Note :</label>
+                        <div class="star-rating-widget" id="star-widget">
+                            <span data-value="1">★</span>
+                            <span data-value="2">★</span>
+                            <span data-value="3">★</span>
+                            <span data-value="4">★</span>
+                            <span data-value="5">★</span>
+                        </div>
+                        <input type="hidden" id="review-rating" value="5">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="review-text" rows="3" placeholder="Votre commentaire..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Envoyer l'avis</button>
+                </form>
+            </div>
+
+            <!-- Reviews Container -->
+            <div id="reviews-container" class="grid grid-3-md gap-2">
+                <!-- Reviews will be injected here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section padding-y bg-white">
+        <div class="container max-w-md">
+            <div class="section-header text-center">
+                <h2>Questions Fréquentes</h2>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">Sur quels appareils cela fonctionne ? <span
+                            class="icon">+</span></button>
+                    <div class="accordion-content">
+                        <p>Fonctionne sur iPad (GoodNotes, Notability) et tablettes Android (Xodo, Samsung Notes).</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Est-ce un produit physique ? <span class="icon">+</span></button>
+                    <div class="accordion-content">
+                        <p>Non, c'est un produit 100% numérique à télécharger immédiatement.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Comment le télécharger ? <span class="icon">+</span></button>
+                    <div class="accordion-content">
+                        <p>Vous recevrez un lien par email juste après votre achat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Planner.</h3>
+                    <p>Organisez votre vie avec élégance.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Contact</a>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Digital Planner. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Commander le Planner</h2>
+            <div class="product-summary">
+                <p>Digital Planner 2025-2026 (PDF Interactif)</p>
+                <p class="price">1.00 €</p>
+            </div>
+            <div id="paypal-button-container"></div>
+            <p class="secure-info">🔒 Paiement sécurisé par PayPal</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
