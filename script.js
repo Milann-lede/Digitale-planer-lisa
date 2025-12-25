@@ -325,10 +325,19 @@ const initPayPal = () => {
 
     // Close Modal
     closeBtn.addEventListener('click', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        // If paid=true is in URL, DO NOT allow closing
+        if (urlParams.get('paid') === 'true') return;
+
         modal.classList.add('hidden');
     });
 
     window.addEventListener('click', (e) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        // If paid=true is in URL, DO NOT allow closing
+        if (urlParams.get('paid') === 'true') return;
+
+        // Always allow closing by clicking outside otherwise
         if (e.target === modal) {
             modal.classList.add('hidden');
         }
@@ -338,22 +347,8 @@ const initPayPal = () => {
     // Check if URL contains '?paid=true'
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('paid') === 'true') {
-        modal.classList.remove('hidden');
-        if (container) {
-            container.innerHTML = `
-                <div class="product-summary" style="background: #e6fffa; border: 1px solid #38b2ac; padding: 1rem; margin-bottom: 1rem;">
-                    <p style="color: #2c7a7b; font-weight: bold; font-size: 1.1rem;">✅ Paiement Validé !</p>
-                    <p style="font-size: 0.9rem;">Merci pour votre commande.</p>
-                </div>
-                <div style="text-align: center;">
-                    <p style="margin-bottom: 1rem;">Voici votre lien d'accès exclusif :</p>
-                    <a href="https://www.canva.com/design/DAGx8N1EIrw/sbQelKkU0xbDVPwJXaGFYg/view?utm_content=DAGx8N1EIrw&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview" target="_blank" class="btn btn-primary" style="display: inline-block; padding: 12px 24px; font-size: 1.1rem;">
-                        📥 Télécharger mon Planner
-                    </a>
-                    <p class="secure-info" style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8;">Nous vous conseillons d'enregistrer ce lien.</p>
-                </div>
-            `;
-        }
+        localStorage.setItem('payment_validated', 'true');
+        window.location.href = 'success.html';
     }
 };
 

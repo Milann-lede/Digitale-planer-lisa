@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Validé - Digital Planner</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background-color: #faf9f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .btn-home {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: underline;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="success-card">
+        <span class="success-icon">✅</span>
+        <h1>Paiement Validé !</h1>
+        <p style="margin-bottom: 30px;">Merci pour votre commande. Votre Digital Planner 2025 est prêt.</p>
+
+        <a href="./Planner_2025.pdf" download="Planner_2025_Lisa.pdf" class="btn btn-primary"
+            style="display: inline-block; padding: 15px 30px; font-size: 1.2rem;">
+            📥 Télécharger le PDF
+        </a>
+
+        <p class="secure-info" style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.8;">Le fichier a été débloqué
+            suite à votre paiement.</p>
+
+        <a href="index.html" class="btn-home">Retour à l'accueil</a>
+    </div>
+
+</body>
+
+</html>
