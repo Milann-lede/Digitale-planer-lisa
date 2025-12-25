@@ -308,7 +308,7 @@ const initPayPal = () => {
                 container.innerHTML = `
                     <p style="margin-bottom:10px;">Le chargement est trop long.</p>
                     <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary" style="background:#003087; color:white;">
-                        Payer 1.00 € (Lien Direct)
+                        Payer 8,99 € (Lien Direct)
                     </a>
                 `;
             }
