@@ -262,7 +262,58 @@ const initPayPal = () => {
     // Modal Elements
     const modal = document.getElementById('checkout-modal');
     const closeBtn = document.querySelector('.close-modal');
-    const checkoutBtns = document.querySelectorAll('.btn-checkout'); // Add class to all buy buttons if needed
+    const checkoutBtns = document.querySelectorAll('.btn-checkout');
+    const container = document.getElementById('paypal-button-container');
+
+    // Remove old content and set up container
+    if (container) {
+        // Add a loading text initially
+        container.innerHTML = '<div id="paypal-loading" style="text-align:center; padding: 20px;">Chargement du bouton PayPal...</div><div id="paypal-container-4QFBGY33UY4BE"></div>';
+
+        // Function to render the button
+        const renderButton = () => {
+            document.getElementById('paypal-loading').innerText = "Initialisation...";
+            try {
+                // Remove strict eligibility check which might hide the button
+                if (window.paypal && window.paypal.HostedButtons) {
+                    window.paypal.HostedButtons({
+                        hostedButtonId: "4QFBGY33UY4BE",
+                    }).render("#paypal-container-4QFBGY33UY4BE")
+                        .then(() => {
+                            document.getElementById('paypal-loading').style.display = 'none';
+                        });
+                }
+            } catch (e) {
+                console.error("Error rendering Hosted Button:", e);
+                // Fallback UI
+                container.innerHTML = `
+                    <div style="color:red; margin-bottom:10px;">Le bouton PayPal n'a pas pu charger.</div>
+                    <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary">
+                        Payer via Lien Sécurisé
+                    </a>
+                `;
+            }
+        };
+
+        // Poll every 500ms for up to 4 seconds
+        let attempts = 0;
+        const interval = setInterval(() => {
+            attempts++;
+            if (window.paypal && window.paypal.HostedButtons) {
+                clearInterval(interval);
+                renderButton();
+            } else if (attempts > 8) { // 4 seconds
+                clearInterval(interval);
+                // Fallback if script fails to load
+                container.innerHTML = `
+                    <p style="margin-bottom:10px;">Le chargement est trop long.</p>
+                    <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary" style="background:#003087; color:white;">
+                        Payer 1.00 € (Lien Direct)
+                    </a>
+                `;
+            }
+        }, 500);
+    }
 
     // Open Modal
     checkoutBtns.forEach(btn => {
@@ -283,59 +334,26 @@ const initPayPal = () => {
         }
     });
 
-    // Initialize PayPal Buttons
-    if (window.paypal) {
-        window.paypal.Buttons({
-            style: {
-                layout: 'vertical',
-                color: 'gold',
-                shape: 'rect',
-                label: 'paypal'
-            },
-            createOrder: function (data, actions) {
-                // Set up the transaction
-                return actions.order.create({
-                    purchase_units: [{
-                        description: "Digital Planner 2025-2026",
-                        amount: {
-                            currency_code: 'EUR',
-                            value: '1.00'
-                        }
-                    }]
-                });
-            },
-            onApprove: function (data, actions) {
-                // Capture the funds
-                return actions.order.capture().then(function (details) {
-                    // Hide PayPal buttons
-                    document.getElementById('paypal-button-container').style.display = 'none';
-
-                    // Show success message and link (Canva)
-                    const modalContent = document.querySelector('.modal-content');
-                    modalContent.innerHTML = `
-                        <h2>Merci ${details.payer.name.given_name} !</h2>
-                        <div class="product-summary" style="background: #e6fffa; border: 1px solid #38b2ac;">
-                            <p style="color: #2c7a7b; font-weight: bold;">Paiement validé ✅</p>
-                        </div>
-                        <p>Voici votre lien d'accès exclusif :</p>
-                        <a href="https://www.canva.com/design/DAGx8N1EIrw/sbQelKkU0xbDVPwJXaGFYg/view?utm_content=DAGx8N1EIrw&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview" target="_blank" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">
-                            Accéder à mon Planner 
-                        </a>
-                        <p class="secure-info" style="margin-top: 1rem;">Conservez ce lien précieusement.</p>
-                    `;
-                });
-            },
-            onError: function (err) {
-                console.error('PayPal Error:', err);
-                alert("Une erreur est survenue lors du paiement. Veuillez réessayer.");
-            },
-            onCancel: function (data) {
-                console.log('Paiement annulé');
-                alert("Vous avez annulé le paiement.");
-            }
-        }).render('#paypal-button-container');
-    } else {
-        console.error("PayPal SDK not loaded");
+    // --- NEW: Handle Return from PayPal ---
+    // Check if URL contains '?paid=true'
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('paid') === 'true') {
+        modal.classList.remove('hidden');
+        if (container) {
+            container.innerHTML = `
+                <div class="product-summary" style="background: #e6fffa; border: 1px solid #38b2ac; padding: 1rem; margin-bottom: 1rem;">
+                    <p style="color: #2c7a7b; font-weight: bold; font-size: 1.1rem;">✅ Paiement Validé !</p>
+                    <p style="font-size: 0.9rem;">Merci pour votre commande.</p>
+                </div>
+                <div style="text-align: center;">
+                    <p style="margin-bottom: 1rem;">Voici votre lien d'accès exclusif :</p>
+                    <a href="https://www.canva.com/design/DAGx8N1EIrw/sbQelKkU0xbDVPwJXaGFYg/view?utm_content=DAGx8N1EIrw&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview" target="_blank" class="btn btn-primary" style="display: inline-block; padding: 12px 24px; font-size: 1.1rem;">
+                        📥 Télécharger mon Planner
+                    </a>
+                    <p class="secure-info" style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8;">Nous vous conseillons d'enregistrer ce lien.</p>
+                </div>
+            `;
+        }
     }
 };
 
