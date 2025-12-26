@@ -55,10 +55,18 @@
 
     <!-- Security: Access Control -->
     <script>
-        // If the user hasn't paid (no localStorage flag), redirect to home.
-        // This prevents people from just sharing the link to this page.
-        if (localStorage.getItem('payment_validated') !== 'true') {
+        // Check local storage OR URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasPaidParam = urlParams.get('paid') === 'true';
+        const hasLocalToken = localStorage.getItem('payment_validated') === 'true';
+
+        if (!hasLocalToken && !hasPaidParam) {
             window.location.href = 'index.html';
+        }
+
+        // Optional: Persist token if present in URL
+        if (hasPaidParam && !hasLocalToken) {
+            localStorage.setItem('payment_validated', 'true');
         }
     </script>
 </head>

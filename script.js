@@ -384,7 +384,7 @@ const initPayPal = () => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('paid') === 'true') {
         localStorage.setItem('payment_validated', 'true');
-        window.location.href = 'success.html';
+        window.location.href = 'success.html?paid=true';
     }
 };
 
