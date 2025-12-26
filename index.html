@@ -218,7 +218,7 @@
             <h2>Commander le Planner</h2>
             <div class="product-summary">
                 <p>Digital Planner 2025-2026 (PDF Interactif)</p>
-                <p class="price">1.00 €</p>
+                <p class="price">8,99 €</p>
             </div>
             <div id="paypal-button-container"></div>
             <p class="secure-info">🔒 Paiement sécurisé par PayPal</p>
@@ -226,6 +226,20 @@
     </div>
 
     <!-- Scripts -->
+    <!-- Review Success Modal -->
+    <div id="review-success-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-modal" id="close-review-modal">&times;</span>
+            <div style="text-align: center;">
+                <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">✨</span>
+                <h3 style="margin-bottom: 1rem; color: var(--color-gris-fonce);">Merci pour votre avis !</h3>
+                <p>Votre commentaire a bien été envoyé. Il apparaîtra bientôt sur le site.</p>
+                <button class="btn btn-primary btn-sm"
+                    onclick="document.getElementById('review-success-modal').classList.add('hidden')">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <script type="module" src="script.js"></script>
 </body>
 

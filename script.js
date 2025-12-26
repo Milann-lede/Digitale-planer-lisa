@@ -264,7 +264,22 @@ const initReviews = async () => {
                         console.log('FAILED...', error);
                     });
 
-                alert('Merci pour votre avis ! Le message a bien été envoyé.');
+                // Show Success Modal instead of Alert
+                const successModal = document.getElementById('review-success-modal');
+                if (successModal) {
+                    successModal.classList.remove('hidden');
+
+                    // Close handler
+                    const closeReviewBtn = document.getElementById('close-review-modal');
+                    if (closeReviewBtn) {
+                        closeReviewBtn.onclick = () => successModal.classList.add('hidden');
+                    }
+                    // Click outside to close
+                    successModal.onclick = (e) => {
+                        if (e.target === successModal) successModal.classList.add('hidden');
+                    };
+                }
+
                 form.reset();
                 currentRating = 5;
                 ratingInput.value = 5;
@@ -307,11 +322,9 @@ const initPayPal = () => {
                 // Fallback UI
                 container.innerHTML = `
                     <div style="text-align: center;">
-                        <p style="margin-bottom: 1rem;">Voici votre Planner 2025 :</p>
-                        <a href="./Planner_2025.pdf" download="Planner_2025_Lisa.pdf" class="btn btn-primary" style="display: inline-block; padding: 12px 24px; font-size: 1.1rem;">
-                            📥 Télécharger le PDF
+                        <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary" style="background:#003087; color:white;">
+                            Payer 8,99 € (Lien Direct)
                         </a>
-                        <p class="secure-info" style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8;">Le fichier a été débloqué suite à votre paiement.</p>
                     </div>
                 `;
             }
@@ -328,10 +341,11 @@ const initPayPal = () => {
                 clearInterval(interval);
                 // Fallback if script fails to load
                 container.innerHTML = `
-                    <p style="margin-bottom:10px;">Le chargement est trop long.</p>
-                    <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary" style="background:#003087; color:white;">
-                        Payer 8,99 € (Lien Direct)
-                    </a>
+                    <div style="text-align: center;">
+                        <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary" style="background:#003087; color:white;">
+                            Payer 8,99 € (Lien Direct)
+                        </a>
+                    </div>
                 `;
             }
         }, 500);
