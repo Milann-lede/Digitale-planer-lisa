@@ -108,6 +108,25 @@ const initUI = () => {
         });
     });
 
+    // Mobile Menu Toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileToggle && navLinks) {
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active'); // Optional: for icon animation
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            });
+        });
+    }
+
     // Smooth Scroll links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -287,10 +306,13 @@ const initPayPal = () => {
                 console.error("Error rendering Hosted Button:", e);
                 // Fallback UI
                 container.innerHTML = `
-                    <div style="color:red; margin-bottom:10px;">Le bouton PayPal n'a pas pu charger.</div>
-                    <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary">
-                        Payer via Lien Sécurisé
-                    </a>
+                    <div style="text-align: center;">
+                        <p style="margin-bottom: 1rem;">Voici votre Planner 2025 :</p>
+                        <a href="./Planner_2025.pdf" download="Planner_2025_Lisa.pdf" class="btn btn-primary" style="display: inline-block; padding: 12px 24px; font-size: 1.1rem;">
+                            📥 Télécharger le PDF
+                        </a>
+                        <p class="secure-info" style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.8;">Le fichier a été débloqué suite à votre paiement.</p>
+                    </div>
                 `;
             }
         };

@@ -16,6 +16,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- Security: Prevent Indexing -->
+    <meta name="robots" content="noindex, nofollow">
+
     <style>
         body {
             background-color: #faf9f6;
@@ -49,6 +52,15 @@
             color: #666;
         }
     </style>
+
+    <!-- Security: Access Control -->
+    <script>
+        // If the user hasn't paid (no localStorage flag), redirect to home.
+        // This prevents people from just sharing the link to this page.
+        if (localStorage.getItem('payment_validated') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
 </head>
 
 <body>
