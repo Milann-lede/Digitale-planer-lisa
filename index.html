@@ -124,17 +124,30 @@
             <div class="section-header text-center">
                 <h2>Ce qu'ils en pensent</h2>
             </div>
-            <!-- Review Form -->
+            <!-- Review Form & Auth -->
             <div class="review-form-container">
                 <h3>Laissez votre avis</h3>
-                <form id="review-form">
-                    <div class="form-group">
-                        <input type="text" id="review-name" placeholder="Votre Prénom" aria-label="Prénom" required>
+
+                <!-- Auth Block -->
+                <div id="auth-container" class="text-center">
+                    <p class="mb-1">Connectez-vous pour partager votre expérience.</p>
+                    <button id="btn-google-login" class="btn btn-google">
+                        <span class="icon">G</span> Se connecter avec Google
+                    </button>
+                </div>
+
+                <!-- Form Block (Hidden by default) -->
+                <form id="review-form" class="hidden">
+                    <!-- User Profile Display -->
+                    <div id="user-profile" class="user-profile">
+                        <img id="user-avatar" src="" alt="Avatar" class="avatar">
+                        <span id="user-name"></span>
+                        <button type="button" id="btn-logout" class="btn-link">Déconnexion</button>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="review-email" placeholder="Votre Email (pour le suivi)"
-                            aria-label="Email" required>
-                    </div>
+
+                    <!-- Hidden inputs for data -->
+                    <input type="hidden" id="review-name">
+                    <input type="hidden" id="review-email">
 
                     <div class="form-group">
                         <label>Note :</label>

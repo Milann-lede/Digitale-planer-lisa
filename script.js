@@ -148,7 +148,67 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const initReviews = async () => {
     const container = document.querySelector('#reviews-container');
+    const authContainer = document.querySelector('#auth-container');
     const form = document.querySelector('#review-form');
+    const btnLogin = document.querySelector('#btn-google-login');
+    const btnLogout = document.querySelector('#btn-logout');
+    const userProfile = document.querySelector('#user-profile');
+    const userNameDisplay = document.querySelector('#user-name');
+    const userAvatarDisplay = document.querySelector('#user-avatar');
+
+    // --- Auth State Management ---
+
+    const updateAuthUI = (user) => {
+        if (user) {
+            // User is logged in
+            authContainer.classList.add('hidden');
+            form.classList.remove('hidden');
+            userProfile.style.display = 'flex';
+            userNameDisplay.textContent = user.user_metadata.full_name || user.email;
+            userAvatarDisplay.src = user.user_metadata.avatar_url || 'https://via.placeholder.com/40';
+
+            // Pre-fill hidden inputs
+            document.querySelector('#review-name').value = user.user_metadata.full_name || 'Anonyme';
+            document.querySelector('#review-email').value = user.email;
+        } else {
+            // User is logged out
+            authContainer.classList.remove('hidden');
+            form.classList.add('hidden');
+            userProfile.style.display = 'none';
+        }
+    };
+
+    // Check initial session
+    const { data: { session } } = await supabase.auth.getSession();
+    updateAuthUI(session?.user);
+
+    // Listen for auth changes
+    supabase.auth.onAuthStateChange((_event, session) => {
+        updateAuthUI(session?.user);
+    });
+
+    // Login Handler
+    if (btnLogin) {
+        btnLogin.addEventListener('click', async () => {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: window.location.origin
+                }
+            });
+            if (error) console.error('Login error:', error.message);
+        });
+    }
+
+    // Logout Handler
+    if (btnLogout) {
+        btnLogout.addEventListener('click', async () => {
+            const { error } = await supabase.auth.signOut();
+            if (error) console.error('Logout error:', error.message);
+        });
+    }
+
+    // --- Review Logic ---
 
     // Render a single review card
     const createReviewCard = (review) => {
