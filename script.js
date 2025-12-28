@@ -193,8 +193,8 @@ const initReviews = async () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    // Force redirect to the current page URL
-                    redirectTo: window.location.href.split('?')[0]
+                    // Ensure we redirect to the clean base URL (e.g., .../Digitale-planer-lisa/)
+                    redirectTo: window.location.origin + window.location.pathname.replace('/index.html', '')
                 }
             });
             if (error) console.error('Login error:', error.message);
