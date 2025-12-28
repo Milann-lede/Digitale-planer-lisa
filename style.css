@@ -7,6 +7,7 @@
     --color-gris-fonce: #2A2A2A;   /* Text (Accessible) */
     --color-blanc-casse: #f0a8c4;  /* Cards/Sections - Darker Pink */
     --color-blanc: #faf9f6; /* Pure white */
+    --color-texte-blanc: #ffffff; /* Text White */
 
     /* Typography */
     --font-sans: 'Montserrat', sans-serif;
@@ -28,7 +29,7 @@ body {
     color: var(--color-gris-fonce);
     background-color: var(--color-rose-poudre);
     /* Pattern integration */
-    background-image: url('bg-pattern.png');
+    background-image: url('assets/bg-pattern.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -119,7 +120,7 @@ a {
 
 .btn-primary {
     background-color: var(--color-vert-sauge);
-    color: var(--color-texte-blanc); /* Info: uses new off-white text variable */
+    color: var(--color-texte-blanc);
     box-shadow: 0 8px 20px rgba(184, 199, 179, 0.4);
 }
 
@@ -525,9 +526,7 @@ a {
         display: block;
     }
 
-    .nav-actions {
-        /* Keep button visible on mobile header */
-    }
+
 }
 
 @keyframes slideDown {
@@ -549,11 +548,7 @@ a {
     .hero { padding-top: 80px; text-align: center; }
     
     .hero-container {
-        flex-direction: column-reverse; /* Text below 3D on mobile usually, implies text comes first in DOM but column-reverse puts last element first? 
-           Check DOM: Text is first, 3D is second. 
-           column-reverse means: 3D (bottom of code) goes to TOP visually. Text (top of code) goes BOTTOM. 
-           This is correct for "Image Top, Text Bottom". verified.
-        */
+        flex-direction: column-reverse;
         gap: 1rem;
     }
 
@@ -587,4 +582,35 @@ a {
     h1 { font-size: 2rem; }
     .btn { padding: 0.8rem 1.5rem; width: 100%; text-align: center; margin-bottom: 0.5rem; } /* Stack buttons */
     .hero-cta { flex-direction: column; width: 100%; }
+}
+
+/* --- New Utilities for Cleanup --- */
+
+.modal-success-content {
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 3rem; 
+    display: block; 
+    margin-bottom: 1rem;
+}
+
+.modal-title {
+    margin-bottom: 1rem; 
+    color: var(--color-gris-fonce);
+}
+
+.paypal-loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.paypal-fallback {
+    text-align: center;
+}
+
+.btn-paypal-direct {
+    background: #003087;
+    color: white;
 }

@@ -1,5 +1,4 @@
 
-
 const SUPABASE_URL = "https://cvxrsyznfgojlzclkzdn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Iz7YD8LwfWwC7X6dNFsKKA_ALpeOoUh";
 
@@ -13,7 +12,7 @@ async function pingSupabase() {
         });
 
         if (res.ok) {
-            console.log("Ping réussi !");
+            // Ping successful
         } else {
             console.error("Erreur ping:", res.status);
         }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<!-- mes se lien pour le PDF : https://milann-lede.github.io/Digitale-planer-lisa/success.html -->
+
 
 <head>
     <meta charset="UTF-8">
@@ -130,12 +130,11 @@
                 <form id="review-form">
                     <div class="form-group">
                         <input type="text" id="review-name" placeholder="Votre Prénom" required>
-                    </div> <!-- Added Email Field -->
+                    </div>
                     <div class="form-group">
                         <input type="email" id="review-email" placeholder="Votre Email (pour le suivi)" required>
                     </div>
-                    <!-- End Email Field -->
-                    <!-- Role field removed as requested -->
+
                     <div class="form-group">
                         <label>Note :</label>
                         <div class="star-rating-widget" id="star-widget">
@@ -230,9 +229,9 @@
     <div id="review-success-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <span class="close-modal" id="close-review-modal">&times;</span>
-            <div style="text-align: center;">
-                <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">✨</span>
-                <h3 style="margin-bottom: 1rem; color: var(--color-gris-fonce);">Merci pour votre avis !</h3>
+            <div class="modal-success-content">
+                <span class="modal-icon">✨</span>
+                <h3 class="modal-title">Merci pour votre avis !</h3>
                 <p>Votre commentaire a bien été envoyé. Il apparaîtra bientôt sur le site.</p>
                 <button class="btn btn-primary btn-sm"
                     onclick="document.getElementById('review-success-modal').classList.add('hidden')">Fermer</button>

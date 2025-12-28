@@ -46,7 +46,7 @@ const init3D = () => {
 
     // Texture Loader
     const textureLoader = new THREE.TextureLoader();
-    const screenTexture = textureLoader.load('planner-screen.png');
+    const screenTexture = textureLoader.load('assets/planner-screen.png');
     screenTexture.colorSpace = THREE.SRGBColorSpace;
 
     // Screen
@@ -140,7 +140,7 @@ const initUI = () => {
 
 // --- Review System Logic (Supabase) ---
 
-// ⚠️ REMES : Remplace ces valeurs par les tiennes depuis ton projet Supabase !
+
 const SUPABASE_URL = 'https://cvxrsyznfgojlzclkzdn.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_Iz7YD8LwfWwC7X6dNFsKKA_ALpeOoUh';
 
@@ -259,9 +259,9 @@ const initReviews = async () => {
                 // Replace 'YOUR_service_ID' and 'YOUR_TEMPLATE_ID' with actual IDs from EmailJS Dashboard
                 emailjs.send('service_vfboxlr', 'template_zj32fyu', templateParams)
                     .then(function (response) {
-                        console.log('SUCCESS!', response.status, response.text);
+                        // Success
                     }, function (error) {
-                        console.log('FAILED...', error);
+                        console.error('EmailJS Failed...', error);
                     });
 
                 // Show Success Modal instead of Alert
@@ -302,7 +302,7 @@ const initPayPal = () => {
     // Remove old content and set up container
     if (container) {
         // Add a loading text initially
-        container.innerHTML = '<div id="paypal-loading" style="text-align:center; padding: 20px;">Chargement du bouton PayPal...</div><div id="paypal-container-4QFBGY33UY4BE"></div>';
+        container.innerHTML = '<div id="paypal-loading" class="paypal-loading">Chargement du bouton PayPal...</div><div id="paypal-container-4QFBGY33UY4BE"></div>';
 
         // Function to render the button
         const renderButton = () => {
@@ -321,8 +321,8 @@ const initPayPal = () => {
                 console.error("Error rendering Hosted Button:", e);
                 // Fallback UI
                 container.innerHTML = `
-                    <div style="text-align: center;">
-                        <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary" style="background:#003087; color:white;">
+                    <div class="paypal-fallback">
+                        <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary btn-paypal-direct">
                             Payer 8,99 € (Lien Direct)
                         </a>
                     </div>
@@ -341,8 +341,8 @@ const initPayPal = () => {
                 clearInterval(interval);
                 // Fallback if script fails to load
                 container.innerHTML = `
-                    <div style="text-align: center;">
-                        <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary" style="background:#003087; color:white;">
+                    <div class="paypal-fallback">
+                        <a href="https://www.paypal.com/ncp/payment/4QFBGY33UY4BE" target="_blank" class="btn btn-primary btn-paypal-direct">
                             Payer 8,99 € (Lien Direct)
                         </a>
                     </div>
