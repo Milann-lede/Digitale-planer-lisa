@@ -193,8 +193,8 @@ const initReviews = async () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    // Redirect back to the exact same page (without query params)
-                    redirectTo: window.location.origin + window.location.pathname
+                    // Force redirect to the current page URL
+                    redirectTo: window.location.href.split('?')[0]
                 }
             });
             if (error) console.error('Login error:', error.message);
