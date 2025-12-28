@@ -4,7 +4,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 // --- 3D Scene Implementation ---
 
 const init3D = () => {
-    const container = document.getElementById('canvas-container');
+    const container = document.querySelector('#canvas-container');
     if (!container) return;
 
     // Scene setup
@@ -147,8 +147,8 @@ const SUPABASE_KEY = 'sb_publishable_Iz7YD8LwfWwC7X6dNFsKKA_ALpeOoUh';
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const initReviews = async () => {
-    const container = document.getElementById('reviews-container');
-    const form = document.getElementById('review-form');
+    const container = document.querySelector('#reviews-container');
+    const form = document.querySelector('#review-form');
 
     // Render a single review card
     const createReviewCard = (review) => {
@@ -196,7 +196,7 @@ const initReviews = async () => {
 
     // Star Widget Logic (Reset & Interaction)
     const stars = document.querySelectorAll('#star-widget span');
-    const ratingInput = document.getElementById('review-rating');
+    const ratingInput = document.querySelector('#review-rating');
     let currentRating = 5;
 
     const updateStars = (rating) => {
@@ -229,10 +229,10 @@ const initReviews = async () => {
             e.preventDefault();
 
             const newReview = {
-                name: document.getElementById('review-name').value,
-                email: document.getElementById('review-email').value, // Capture Email
-                rating: parseInt(document.getElementById('review-rating').value),
-                message: document.getElementById('review-text').value
+                name: document.querySelector('#review-name').value,
+                email: document.querySelector('#review-email').value, // Capture Email
+                rating: parseInt(document.querySelector('#review-rating').value),
+                message: document.querySelector('#review-text').value
             };
 
             // Send to Supabase
@@ -265,12 +265,12 @@ const initReviews = async () => {
                     });
 
                 // Show Success Modal instead of Alert
-                const successModal = document.getElementById('review-success-modal');
+                const successModal = document.querySelector('#review-success-modal');
                 if (successModal) {
                     successModal.classList.remove('hidden');
 
                     // Close handler
-                    const closeReviewBtn = document.getElementById('close-review-modal');
+                    const closeReviewBtn = document.querySelector('#close-review-modal');
                     if (closeReviewBtn) {
                         closeReviewBtn.onclick = () => successModal.classList.add('hidden');
                     }
@@ -294,10 +294,10 @@ const initReviews = async () => {
 
 const initPayPal = () => {
     // Modal Elements
-    const modal = document.getElementById('checkout-modal');
+    const modal = document.querySelector('#checkout-modal');
     const closeBtn = document.querySelector('.close-modal');
     const checkoutBtns = document.querySelectorAll('.btn-checkout');
-    const container = document.getElementById('paypal-button-container');
+    const container = document.querySelector('#paypal-button-container');
 
     // Remove old content and set up container
     if (container) {
@@ -306,7 +306,7 @@ const initPayPal = () => {
 
         // Function to render the button
         const renderButton = () => {
-            document.getElementById('paypal-loading').innerText = "Initialisation...";
+            document.querySelector('#paypal-loading').innerText = "Initialisation...";
             try {
                 // Remove strict eligibility check which might hide the button
                 if (window.paypal && window.paypal.HostedButtons) {
@@ -314,7 +314,7 @@ const initPayPal = () => {
                         hostedButtonId: "4QFBGY33UY4BE",
                     }).render("#paypal-container-4QFBGY33UY4BE")
                         .then(() => {
-                            document.getElementById('paypal-loading').style.display = 'none';
+                            document.querySelector('#paypal-loading').style.display = 'none';
                         });
                 }
             } catch (e) {
