@@ -58,7 +58,7 @@
             </div>
             <div class="nav-actions">
                 <button class="btn btn-primary btn-sm btn-checkout">Acheter</button>
-                <div class="mobile-toggle">
+                <div class="mobile-toggle" role="button" aria-label="Menu" tabindex="0">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -129,10 +129,11 @@
                 <h3>Laissez votre avis</h3>
                 <form id="review-form">
                     <div class="form-group">
-                        <input type="text" id="review-name" placeholder="Votre Prénom" required>
+                        <input type="text" id="review-name" placeholder="Votre Prénom" aria-label="Prénom" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="review-email" placeholder="Votre Email (pour le suivi)" required>
+                        <input type="email" id="review-email" placeholder="Votre Email (pour le suivi)"
+                            aria-label="Email" required>
                     </div>
 
                     <div class="form-group">
@@ -147,7 +148,8 @@
                         <input type="hidden" id="review-rating" value="5">
                     </div>
                     <div class="form-group">
-                        <textarea id="review-text" rows="3" placeholder="Votre commentaire..." required></textarea>
+                        <textarea id="review-text" rows="3" placeholder="Votre commentaire..."
+                            aria-label="Votre commentaire" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Envoyer l'avis</button>
                 </form>
@@ -213,7 +215,7 @@
     <!-- Checkout Modal -->
     <div id="checkout-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" role="button" aria-label="Fermer" tabindex="0">&times;</span>
             <h2>Commander le Planner</h2>
             <div class="product-summary">
                 <p>Digital Planner 2025-2026 (PDF Interactif)</p>
@@ -228,7 +230,8 @@
     <!-- Review Success Modal -->
     <div id="review-success-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <span class="close-modal" id="close-review-modal">&times;</span>
+            <span class="close-modal" id="close-review-modal" role="button" aria-label="Fermer"
+                tabindex="0">&times;</span>
             <div class="modal-success-content">
                 <span class="modal-icon">✨</span>
                 <h3 class="modal-title">Merci pour votre avis !</h3>
