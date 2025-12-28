@@ -2,8 +2,8 @@
     /* Palette Moodboard - STRICT */
     --color-rose-poudre: #F5E6EA;  /* Dominant background */
     --color-rose-fonce: #E8D0D6;   /* Secondary background */
-    --color-vert-sauge: #B8C7B3;   /* Accent 1 (Buttons) */
-    --color-jaune-moutarde: #D4AF37; /* Accent 2 (Highlights/Stars) */
+    --color-vert-sauge: #5B7056;   /* Accent 1 (Buttons) */
+    --color-jaune-moutarde: #A07C12; /* Accent 2 (Highlights/Stars) */
     --color-gris-fonce: #2A2A2A;   /* Text (Accessible) */
     --color-blanc-casse: #f0a8c4;  /* Cards/Sections - Darker Pink */
     --color-blanc: #faf9f6; /* Pure white */
@@ -126,7 +126,7 @@ a {
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    background-color: #A3B59E;
+    background-color: #6B8365;
     box-shadow: 0 12px 25px rgba(184, 199, 179, 0.6);
 }
 
